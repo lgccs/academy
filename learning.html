@@ -1,0 +1,952 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>교육 일정 안내</title>
+<style>
+  :root{
+    --navy-950:#1a1a1a;
+    --navy-900:#241416;
+    --navy-800:#7a0e2b;
+    --navy-700:#8f1433;
+    --blue-600:#a50034;
+    --blue-500:#c8103f;
+    --ink-900:#18191c;
+    --ink-600:#54565a;
+    --ink-400:#8b8d92;
+    --line:#e3e2e2;
+    --line-soft:#eeeded;
+    --paper:#f7f6f5;
+    --white:#ffffff;
+    --amber:#c8791f;
+    --amber-bg:#fdf3e4;
+    --radius:10px;
+    --shadow-sm:0 1px 2px rgba(20,10,12,0.06);
+    --shadow-md:0 6px 20px rgba(20,10,12,0.10);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;overflow-x:hidden;}
+  body{
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--paper);
+    color:var(--ink-900);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    width:100%;
+  }
+
+  a{color:inherit;}
+
+  /* ---------- Header ---------- */
+  header.top{
+    background:linear-gradient(135deg,#17181b 0%,#232428 55%,#2c2d31 100%);
+    color:#fff;
+    padding:28px 20px 24px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:3px solid var(--blue-600);
+  }
+  header.top::before{
+    content:"";
+    position:absolute;
+    right:-30px; top:50%;
+    transform:translateY(-50%);
+    width:280px; height:170px;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120"><circle cx="42" cy="60" r="34" fill="white" opacity="0.07"/><path fill-rule="evenodd" fill="white" opacity="0.07" d="M182 60a50 50 0 1 1-100 0 50 50 0 1 1 100 0zM124 60a34 34 0 1 1-68 0 34 34 0 1 1 68 0z"/></svg>');
+    background-repeat:no-repeat;
+    background-size:contain;
+    pointer-events:none;
+  }
+  header.top::after{
+    content:"";
+    position:absolute;
+    right:-70px; top:-70px;
+    width:240px; height:240px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(200,16,63,0.32) 0%, rgba(200,16,63,0) 70%);
+    pointer-events:none;
+  }
+  .top-inner{max-width:1400px;margin:0 auto;position:relative;z-index:1;}
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--blue-500);
+    font-weight:700;
+    margin:0 0 8px;
+  }
+  h1{
+    font-size:24px;
+    margin:0 0 6px;
+    font-weight:800;
+    letter-spacing:-0.01em;
+  }
+  .subcopy{
+    font-size:13.5px;
+    color:#b7b8bd;
+    margin:0;
+    line-height:1.55;
+  }
+  .updated-row{
+    margin-top:16px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    color:#9a9ba1;
+  }
+  .dot-live{
+    width:7px;height:7px;border-radius:50%;
+    background:#5fd68a;
+    box-shadow:0 0 0 3px rgba(95,214,138,0.25);
+    flex:none;
+  }
+  #refreshBtn{
+    margin-left:auto;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.18);
+    color:#e6ecfa;
+    font-size:12.5px;
+    padding:6px 12px;
+    border-radius:20px;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:background .15s ease;
+  }
+  #refreshBtn:hover{background:rgba(255,255,255,0.16);}
+  #refreshBtn svg{width:13px;height:13px;}
+  #refreshBtn.spinning svg{animation:spin 0.8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* ---------- Controls ---------- */
+  /* ---------- Team tabs ---------- */
+  .team-tabs-wrap{
+    background:var(--white);
+    border-bottom:1px solid var(--line);
+  }
+  .team-tabs{
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 20px;
+    display:flex;
+    gap:4px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .team-tabs::-webkit-scrollbar{display:none;}
+  .team-tab{
+    flex:none;
+    padding:14px 6px;
+    margin-right:22px;
+    border:none;
+    border-bottom:3px solid transparent;
+    background:none;
+    color:var(--ink-400);
+    font-size:14.5px;
+    font-weight:700;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .team-tab:hover{color:var(--navy-800);}
+  .team-tab.active{
+    color:var(--navy-800);
+    border-bottom-color:var(--blue-600);
+  }
+
+  .sticky-controls{
+    position:sticky;
+    top:0;
+    z-index:20;
+  }
+  .controls-wrap{
+    background:var(--white);
+    border-bottom:1px solid var(--line);
+  }
+  .controls{
+    max-width:1400px;
+    margin:0 auto;
+    padding:14px 20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+  }
+  .search-box{
+    flex:1 1 220px;
+    position:relative;
+    min-width:160px;
+  }
+  .search-box input{
+    width:100%;
+    padding:10px 12px 10px 34px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:14px;
+    background:var(--paper);
+    color:var(--ink-900);
+    outline:none;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .search-box input:focus{
+    border-color:var(--blue-500);
+    background:var(--white);
+  }
+  .search-box svg{
+    position:absolute;
+    left:11px;top:50%;
+    transform:translateY(-50%);
+    width:15px;height:15px;
+    color:var(--ink-400);
+    pointer-events:none;
+  }
+  select.filter-select{
+    padding:10px 30px 10px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:13.5px;
+    background:var(--paper) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="%238892a3" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat right 10px center;
+    color:var(--ink-900);
+    appearance:none;
+    -webkit-appearance:none;
+    cursor:pointer;
+    outline:none;
+    transition:border-color .15s ease;
+  }
+  select.filter-select:focus{border-color:var(--blue-500);}
+
+  .result-count{
+    font-size:12.5px;
+    color:var(--ink-400);
+    margin-left:auto;
+    white-space:nowrap;
+    padding-left:4px;
+  }
+  .result-count b{color:var(--navy-800);font-weight:700;}
+
+  /* month chips row */
+  .month-chips{
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 20px 14px;
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .month-chips::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:none;
+    padding:7px 14px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:var(--white);
+    color:var(--ink-600);
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:all .15s ease;
+  }
+  .chip:hover{border-color:var(--blue-500);color:var(--blue-600);}
+  .chip.active{
+    background:var(--navy-800);
+    border-color:var(--navy-800);
+    color:#fff;
+  }
+
+  /* ---------- Main ---------- */
+  main{
+    max-width:1400px;
+    margin:0 auto;
+    padding:22px 20px 60px;
+  }
+
+  .state-msg{
+    text-align:center;
+    padding:70px 20px;
+    color:var(--ink-400);
+    font-size:14px;
+  }
+  .state-msg strong{display:block;color:var(--ink-600);font-size:15px;margin-bottom:6px;font-weight:700;}
+
+  .spinner{
+    width:28px;height:28px;
+    border:3px solid var(--line);
+    border-top-color:var(--blue-500);
+    border-radius:50%;
+    margin:0 auto 14px;
+    animation:spin 0.8s linear infinite;
+  }
+
+  /* Group by month */
+  .month-group{margin-bottom:30px;}
+  .month-group:last-child{margin-bottom:0;}
+  .month-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:12px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--navy-800);
+  }
+  .month-head h2{
+    font-size:17px;
+    margin:0;
+    font-weight:800;
+    color:var(--navy-900);
+  }
+  .month-head span{
+    font-size:12px;
+    color:var(--ink-400);
+    font-weight:600;
+  }
+
+  /* ---------- Desktop table ---------- */
+  .table-wrap{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow-sm);
+  }
+  table{
+    width:100%;
+    table-layout:fixed;
+    border-collapse:collapse;
+    font-size:13.5px;
+  }
+  thead th{
+    text-align:left;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--ink-400);
+    font-weight:700;
+    padding:11px 12px;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  tbody tr{border-bottom:1px solid var(--line-soft);}
+  tbody tr:last-child{border-bottom:none;}
+  tbody tr:hover{background:#fafbfd;}
+  tbody td{
+    padding:12px 12px;
+    vertical-align:middle;
+    color:var(--ink-900);
+  }
+  /* 제품군 · 과정명 · 차수명 · 일정 · 장소는 가운데 정렬 */
+  table th:nth-child(1), table td:nth-child(1),
+  table th:nth-child(2), table td:nth-child(2),
+  table th:nth-child(3), table td:nth-child(3),
+  table th:nth-child(4), table td:nth-child(4),
+  table th:nth-child(5), table td:nth-child(5){
+    text-align:center;
+  }
+  .tag{
+    display:inline-block;
+    padding:3px 9px;
+    border-radius:6px;
+    font-size:11.5px;
+    font-weight:700;
+    background:#fbe9ee;
+    color:var(--blue-600);
+    white-space:nowrap;
+  }
+  .course-name{
+    font-weight:700;
+    font-size:14px;
+    white-space:normal;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+    line-height:1.4;
+  }
+  .session-name{
+    color:var(--ink-600);
+    font-size:12.5px;
+    white-space:normal;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+    line-height:1.4;
+  }
+  /* 일정만 줄바꿈 허용 (요일 표기로 길어질 수 있어서) */
+  .cell-schedule{
+    color:var(--ink-900);
+    font-weight:600;
+    white-space:normal;
+    line-height:1.4;
+  }
+  .cell-place{
+    color:var(--ink-600);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .cell-place svg{width:12px;height:12px;vertical-align:-1px;margin-right:3px;color:var(--ink-400);}
+  .apply-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    padding:6px 10px;
+    background:var(--navy-800);
+    color:#fff !important;
+    border-radius:6px;
+    font-size:12px;
+    font-weight:700;
+    text-decoration:none;
+    white-space:nowrap;
+    transition:background .15s ease;
+  }
+  .apply-btn:hover{background:var(--blue-600);}
+  .apply-btn svg{width:10px;height:10px;flex:none;}
+
+  .closed-badge{
+    display:inline-block;
+    padding:6px 12px;
+    background:var(--line-soft);
+    color:var(--ink-400);
+    border-radius:7px;
+    font-size:12px;
+    font-weight:700;
+  }
+
+  /* ---------- Mobile cards ---------- */
+  .card-list{display:none;flex-direction:column;gap:10px;}
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:14px 15px;
+    box-shadow:var(--shadow-sm);
+  }
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:8px;
+  }
+  .card-title{font-size:15px;font-weight:800;color:var(--ink-900);line-height:1.35;}
+  .card-session{font-size:12.5px;color:var(--ink-600);margin-top:3px;}
+  .card-meta{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin:10px 0 12px;
+    font-size:13px;
+    color:var(--ink-600);
+  }
+  .card-meta-row{display:flex;align-items:center;gap:6px;}
+  .card-meta-row svg{width:14px;height:14px;color:var(--ink-400);flex:none;}
+  .card-meta-row b{color:var(--ink-900);font-weight:700;}
+  .card .apply-btn{width:100%;justify-content:center;padding:11px;font-size:13.5px;}
+  .card .closed-badge{width:100%;text-align:center;padding:11px;box-sizing:border-box;}
+
+  /* ---------- 교육 참가 안내 페이지 ---------- */
+  .guide-wrap{
+    max-width:1400px;
+    margin:0 auto;
+    padding:28px 20px 60px;
+  }
+  .guide-title{
+    font-size:22px;
+    font-weight:800;
+    color:var(--ink-900);
+    margin:0 0 16px;
+  }
+  .guide-card{
+    background:#faf5ee;
+    border:1px solid #ece2d3;
+    border-radius:14px;
+    padding:30px 32px 34px;
+  }
+  .guide-section{padding:18px 0;}
+  .guide-section:first-child{padding-top:2px;}
+  .guide-divider{
+    border:none;
+    border-top:1px dashed #d9cbb3;
+    margin:0;
+  }
+  .guide-label{
+    display:inline-block;
+    padding:6px 16px;
+    background:var(--navy-800);
+    border-radius:20px;
+    font-size:13px;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:14px;
+  }
+  .guide-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .guide-list li{
+    position:relative;
+    padding-left:16px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink-900);
+  }
+  .guide-list li::before{
+    content:"";
+    position:absolute;
+    left:2px; top:9px;
+    width:5px;height:5px;
+    border-radius:50%;
+    background:var(--ink-900);
+  }
+  .guide-note{
+    display:block;
+    color:var(--blue-600);
+    font-size:12.5px;
+    font-weight:600;
+    margin-top:3px;
+  }
+  .guide-addr-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .guide-addr-list li{
+    position:relative;
+    padding-left:16px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink-900);
+  }
+  .guide-addr-list li::before{
+    content:"";
+    position:absolute;
+    left:2px; top:9px;
+    width:5px;height:5px;
+    border-radius:50%;
+    background:var(--ink-900);
+  }
+  .guide-addr-tag{
+    display:inline-block;
+    min-width:64px;
+    font-weight:700;
+    color:var(--ink-900);
+  }
+  .guide-addr-note{
+    display:block;
+    margin-left:78px;
+    color:var(--ink-400);
+    font-size:12.5px;
+  }
+  @media (max-width:760px){
+    .guide-card{padding:22px 18px 26px;}
+    .guide-addr-note{margin-left:0;margin-top:2px;}
+  }
+
+  /* ---------- Notice bar ---------- */
+  .notice-bar{
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 20px 12px;
+    color:var(--ink-600);
+    font-size:12.5px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .notice-bar svg{width:14px;height:14px;flex:none;color:var(--blue-600);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:760px){
+    header.top{padding:22px 16px 20px;}
+    h1{font-size:20px;}
+    .subcopy{font-size:13px;}
+    .controls{padding:12px 16px;}
+    .month-chips{padding:0 16px 12px;}
+    main{padding:16px 16px 50px;}
+    .table-wrap{display:none;}
+    .card-list{display:flex;}
+    .result-count{width:100%;order:3;margin-left:0;text-align:right;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <h1>고객가치혁신부문 교육 일정 안내</h1>
+    <p class="subcopy">교육주관 : 한국CC&amp;S역량개발팀, 커뮤니케이션역량개발팀</p>
+    <div class="updated-row">
+      <span class="dot-live"></span>
+      <span id="updatedText">일정 불러오는 중…</span>
+      <button id="refreshBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v6h-6"/></svg>
+        새로고침
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="team-tabs-wrap">
+  <div class="team-tabs" id="teamTabs"></div>
+</div>
+
+<div class="sticky-controls">
+  <div class="controls-wrap">
+    <div class="controls">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="searchInput" type="text" placeholder="과정명, 제품군으로 검색" autocomplete="off" />
+      </div>
+      <select id="productSelect" class="filter-select">
+        <option value="">전체 제품군</option>
+      </select>
+      <span class="result-count" id="resultCount"></span>
+    </div>
+    <div class="notice-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg>
+      일정은 사정에 따라 변경될 수 있습니다. 최신 확정 일정 및 신청은 사내 교육 시스템에서 확인해 주세요.
+    </div>
+    <div class="month-chips" id="monthChips"></div>
+  </div>
+</div>
+
+<main id="main">
+  <div class="state-msg" id="stateMsg">
+    <div class="spinner"></div>
+    <strong>교육 일정을 불러오는 중입니다</strong>
+    구글 시트에서 최신 데이터를 가져오고 있어요.
+  </div>
+</main>
+
+<div class="guide-wrap" id="guidePage" style="display:none;">
+  <h1 class="guide-title">교육 참가 안내</h1>
+  <div class="guide-card">
+    <div class="guide-section">
+      <span class="guide-label">안내사항</span>
+      <ul class="guide-list">
+        <li>필수 준비물 안전화 (교육 실습 시 공구 및 제품 낙하에 의한 안전사고 예방을 위함)
+          <span class="guide-note">※ 미지참 시 과정 평가 점수에 감점 반영</span>
+        </li>
+        <li>사전학습이 필요한 과정은 교육 참가 전 배움마당을 통해 반드시 이수해 주시기 바랍니다.</li>
+      </ul>
+    </div>
+
+    <hr class="guide-divider" />
+
+    <div class="guide-section">
+      <span class="guide-label">출결준비안내</span>
+      <ul class="guide-list">
+        <li>출결 체크는 블루투스 기반으로 강의장 내 '비콘'으로 진행됩니다.</li>
+        <li>비콘 출결 체크를 위하여 '고용24 직업훈련 출결관리' 어플 설치 및 회원가입을 진행해 주시기 바랍니다.</li>
+        <li>교육 시작 10분 전까지 입실해 주시기 바라며, 지각 및 조퇴 시 출결 인정에 제한이 있을 수 있습니다.</li>
+      </ul>
+    </div>
+
+    <hr class="guide-divider" />
+
+    <div class="guide-section">
+      <span class="guide-label">러닝센터 출입안내</span>
+      <ul class="guide-addr-list">
+        <li>
+          <span class="guide-addr-tag">[ 주 소 ]</span> 경기도 평택시 진위면 엘지로 222 LG디지털파크
+          <span class="guide-addr-note">※ 네비게이션 검색 : LG디지털파크 서문</span>
+        </li>
+        <li>
+          <span class="guide-addr-tag">[ 입 소 ]</span> 나눔관 (안내된 건물 지정 강의실 입소)
+          <span class="guide-addr-note">※ 정문 or 서문 Gate에서 ID카드 태깅 후 통과(ID카드 미소지자는 '교육참가확인서' 제출)</span>
+        </li>
+        <li>
+          <span class="guide-addr-tag">[ 퇴 소 ]</span> 보안 Packing확인 → 정문 or 서문 고객안내실 확인
+          <span class="guide-addr-note">※ 정/서문 Gate 보안 관련 문의 : 031-610-5259</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   설정
+   ========================================================= */
+
+// Apps Script를 웹 앱으로 배포한 뒤 발급되는 URL을 넣으세요.
+// (.../macro/exec 로 끝나는 주소)
+const JSON_URL = "https://script.google.com/macros/s/AKfycbxJY_ouI6rqCJ7iWV5eq9-wBmkz9iADrJiV8JmVHGIsTlrg6KCok1mx0wYq3fMIM5Vyug/exec";
+
+// 모든 과정이 공통으로 연결될 사내 교육 시스템 링크
+const APPLY_BASE_URL = "https://edu.yourcompany.com/course/search";
+
+/* ========================================================= */
+
+const state = { rows: [], team: null, month: "", product: "", q: "", view: "data" };
+
+const $ = (sel) => document.querySelector(sel);
+const stateMsg = $("#stateMsg");
+const main = $("#main");
+const updatedText = $("#updatedText");
+const refreshBtn = $("#refreshBtn");
+const searchInput = $("#searchInput");
+const productSelect = $("#productSelect");
+const monthChips = $("#monthChips");
+const teamTabs = $("#teamTabs");
+const stickyControls = document.querySelector(".sticky-controls");
+const guidePage = $("#guidePage");
+const resultCount = $("#resultCount");
+
+function toRecords(list) {
+  return list.map(r => ({
+    team: String(r["팀"] || "").trim(),
+    month: String(r["월"] || "").trim(),
+    product: String(r["제품군"] || "").trim(),
+    course: String(r["과정명"] || "").trim(),
+    session: String(r["차수명"] || "").trim(),
+    schedule: String(r["일정"] || "").trim(),
+    place: String(r["장소"] || "").trim(),
+    status: String(r["상태"] || "").trim(),
+    applyUrl: String(r["신청링크"] || "").trim(),
+    sortKey: String(r["정렬"] || "99999999999999999999")
+  })).filter(r => r.course);
+}
+
+function monthSortKey(m) {
+  const match = m.match(/(\d{1,2})/);
+  return match ? parseInt(match[1], 10) : 99;
+}
+
+async function loadData(isManual) {
+  if (isManual) refreshBtn.classList.add("spinning");
+  try {
+    const url = JSON_URL + (JSON_URL.includes("?") ? "&" : "?") + "_ts=" + Date.now();
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("네트워크 오류");
+    const list = await res.json();
+    if (!Array.isArray(list)) throw new Error("잘못된 데이터 형식");
+    state.rows = toRecords(list);
+    buildTeamTabs();
+    buildFilters();
+    render();
+    const now = new Date();
+    updatedText.textContent = "마지막 업데이트 " +
+      now.toLocaleDateString("ko-KR", { month: "long", day: "numeric" }) + " " +
+      now.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" });
+  } catch (err) {
+    stateMsg.style.display = "block";
+    stateMsg.innerHTML = `<strong>일정을 불러오지 못했습니다</strong>구글 시트 연동 주소를 확인하거나 잠시 후 다시 시도해 주세요.`;
+    updatedText.textContent = "업데이트 실패";
+    console.error(err);
+  } finally {
+    if (isManual) refreshBtn.classList.remove("spinning");
+  }
+}
+
+function buildTeamTabs() {
+  const teams = [...new Set(state.rows.map(r => r.team).filter(Boolean))];
+  if (!teams.length) { teamTabs.innerHTML = ""; return; }
+
+  if (state.team === null || (state.team && !teams.includes(state.team))) {
+    state.team = teams[0]; // 기본값: 첫 번째 팀만 표시 (합쳐서 보여주지 않음)
+  }
+
+  const tabs = ["전체", ...teams];
+  teamTabs.innerHTML = tabs.map(t =>
+    `<button class="team-tab ${state.view === "data" && t === state.team ? "active" : ""}" data-team="${t === "전체" ? "" : escapeAttr(t)}">${escapeHtml(t)}</button>`
+  ).join("") + `<button class="team-tab ${state.view === "guide" ? "active" : ""}" data-guide="1">교육참가안내</button>`;
+}
+
+function buildFilters() {
+  const scoped = state.team ? state.rows.filter(r => r.team === state.team) : state.rows;
+
+  const products = [...new Set(scoped.map(r => r.product).filter(Boolean))].sort();
+  productSelect.innerHTML = '<option value="">전체 제품군</option>' +
+    products.map(p => `<option value="${escapeAttr(p)}">${escapeHtml(p)}</option>`).join("");
+
+  const months = [...new Set(scoped.map(r => r.month).filter(Boolean))]
+    .sort((a, b) => monthSortKey(a) - monthSortKey(b));
+  monthChips.innerHTML = ['<button class="chip active" data-month="">전체</button>']
+    .concat(months.map(m => `<button class="chip" data-month="${escapeAttr(m)}">${escapeHtml(m)}</button>`))
+    .join("");
+}
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+}
+function escapeAttr(s) { return escapeHtml(s); }
+
+function getFiltered() {
+  const q = state.q.trim().toLowerCase();
+  return state.rows.filter(r => {
+    if (state.team && r.team !== state.team) return false;
+    if (state.month && r.month !== state.month) return false;
+    if (state.product && r.product !== state.product) return false;
+    if (q && !(r.course.toLowerCase().includes(q) || r.product.toLowerCase().includes(q) || r.session.toLowerCase().includes(q))) return false;
+    return true;
+  });
+}
+
+function isClosed(status) {
+  return /마감|종료|closed/i.test(status || "");
+}
+
+function render() {
+  const filtered = getFiltered();
+  resultCount.innerHTML = `<b>${filtered.length}</b>건`;
+
+  if (!filtered.length) {
+    stateMsg.style.display = "block";
+    stateMsg.innerHTML = `<strong>조건에 맞는 교육 일정이 없습니다</strong>다른 월이나 제품군으로 검색해 보세요.`;
+    main.querySelectorAll(".month-group").forEach(n => n.remove());
+    return;
+  }
+  stateMsg.style.display = "none";
+
+  const groups = {};
+  filtered.forEach(r => {
+    const key = r.month || "미정";
+    (groups[key] = groups[key] || []).push(r);
+  });
+  const monthKeys = Object.keys(groups).sort((a, b) => monthSortKey(a) - monthSortKey(b));
+  monthKeys.forEach(m => {
+    groups[m].sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+  });
+
+  main.querySelectorAll(".month-group").forEach(n => n.remove());
+
+  monthKeys.forEach(m => {
+    const items = groups[m];
+    const section = document.createElement("section");
+    section.className = "month-group";
+    section.innerHTML = `
+      <div class="month-head"><h2>${escapeHtml(m)}</h2><span>${items.length}건</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th style="width:8%">제품군</th>
+            <th style="width:25%">과정명</th>
+            <th style="width:18%">차수명</th>
+            <th style="width:20%">일정</th>
+            <th style="width:15%">장소</th>
+            <th style="width:14%"></th>
+          </tr></thead>
+          <tbody>${items.map(rowToTr).join("")}</tbody>
+        </table>
+      </div>
+      <div class="card-list">${items.map(rowToCard).join("")}</div>
+    `;
+    main.appendChild(section);
+  });
+}
+
+function applyUrl(r) {
+  return (r && r.applyUrl) ? r.applyUrl : APPLY_BASE_URL;
+}
+
+function rowToTr(r) {
+  const closed = isClosed(r.status);
+  return `
+    <tr>
+      <td><span class="tag">${escapeHtml(r.product || "-")}</span></td>
+      <td class="course-name">${escapeHtml(r.course)}</td>
+      <td class="session-name">${escapeHtml(r.session || "-")}</td>
+      <td class="cell-schedule">${escapeHtml(r.schedule || "-")}</td>
+      <td class="cell-place">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        ${escapeHtml(r.place || "-")}
+      </td>
+      <td>
+        ${closed
+          ? `<span class="closed-badge">모집 마감</span>`
+          : `<a class="apply-btn" href="${applyUrl(r)}" target="_blank" rel="noopener">신청하기
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>
+            </a>`
+        }
+      </td>
+    </tr>`;
+}
+
+function rowToCard(r) {
+  const closed = isClosed(r.status);
+  return `
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">${escapeHtml(r.course)}</div>
+          ${r.session ? `<div class="card-session">${escapeHtml(r.session)}</div>` : ""}
+        </div>
+        <span class="tag">${escapeHtml(r.product || "-")}</span>
+      </div>
+      <div class="card-meta">
+        <div class="card-meta-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <b>${escapeHtml(r.schedule || "-")}</b>
+        </div>
+        <div class="card-meta-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          ${escapeHtml(r.place || "-")}
+        </div>
+      </div>
+      ${closed
+        ? `<span class="closed-badge">모집 마감</span>`
+        : `<a class="apply-btn" href="${applyUrl(r)}" target="_blank" rel="noopener">신청하기
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>
+          </a>`
+      }
+    </div>`;
+}
+
+/* Events */
+searchInput.addEventListener("input", (e) => { state.q = e.target.value; render(); });
+productSelect.addEventListener("change", (e) => { state.product = e.target.value; render(); });
+monthChips.addEventListener("click", (e) => {
+  const btn = e.target.closest(".chip");
+  if (!btn) return;
+  monthChips.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+  btn.classList.add("active");
+  state.month = btn.dataset.month;
+  render();
+});
+teamTabs.addEventListener("click", (e) => {
+  const btn = e.target.closest(".team-tab");
+  if (!btn) return;
+
+  if (btn.dataset.guide) {
+    state.view = "guide";
+    stickyControls.style.display = "none";
+    main.style.display = "none";
+    guidePage.style.display = "block";
+    buildTeamTabs();
+    return;
+  }
+
+  state.view = "data";
+  state.team = btn.dataset.team;
+  state.month = "";
+  state.product = "";
+  searchInput.value = "";
+  state.q = "";
+  stickyControls.style.display = "";
+  main.style.display = "";
+  guidePage.style.display = "none";
+  buildTeamTabs();
+  buildFilters();
+  render();
+});
+refreshBtn.addEventListener("click", () => loadData(true));
+
+loadData(false);
+</script>
+
+</body>
+</html>
