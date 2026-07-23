@@ -332,12 +332,13 @@
     vertical-align:middle;
     color:var(--ink-900);
   }
-  /* 제품군 · 과정명 · 차수명 · 일정 · 장소는 가운데 정렬 */
+  /* 제품군 · 과정명 · 차수명 · 일정 · 장소 · 신청은 가운데 정렬 */
   table th:nth-child(1), table td:nth-child(1),
   table th:nth-child(2), table td:nth-child(2),
   table th:nth-child(3), table td:nth-child(3),
   table th:nth-child(4), table td:nth-child(4),
-  table th:nth-child(5), table td:nth-child(5){
+  table th:nth-child(5), table td:nth-child(5),
+  table th:nth-child(6), table td:nth-child(6){
     text-align:center;
   }
   .tag{
@@ -606,7 +607,7 @@
     </div>
     <div class="notice-bar">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg>
-      일정은 사정에 따라 변경될 수 있습니다. 최신 확정 일정 및 신청은 사내 교육 시스템에서 확인해 주세요.
+      <b>일정은 사정에 따라 변경될 수 있습니다. 최신 확정 일정 및 신청은 사내 LMS 교육 시스템에서 확인해 주세요.</b>
     </div>
     <div class="month-chips" id="monthChips"></div>
   </div>
@@ -827,7 +828,7 @@ function render() {
             <th style="width:18%">차수명</th>
             <th style="width:20%">일정</th>
             <th style="width:15%">장소</th>
-            <th style="width:14%"></th>
+            <th style="width:14%">신청</th>
           </tr></thead>
           <tbody>${items.map(rowToTr).join("")}</tbody>
         </table>
