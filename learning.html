@@ -42,7 +42,7 @@
 
   /* ---------- Header ---------- */
   header.top{
-    background:linear-gradient(135deg,#17181b 0%,#232428 55%,#2c2d31 100%);
+    background:linear-gradient(120deg,#17181b 0%,#221b1e 45%,#3a1522 78%,#4a0f26 100%);
     color:#fff;
     padding:28px 20px 24px;
     position:relative;
@@ -51,11 +51,10 @@
   header.top::before{
     content:"";
     position:absolute;
-    inset:0;
-    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 150"><ellipse cx="310" cy="90" rx="145" ry="95" fill="rgb(200,16,63)" fill-opacity="0.10"/><g transform="rotate(-6 251 52)"><rect x="233" y="24" width="6" height="56" rx="1" fill="rgb(242,228,207)"/><rect x="239" y="22" width="30" height="58" rx="2" fill="rgb(165,0,52)"/><line x1="239" y1="26" x2="239" y2="76" stroke="rgb(255,255,255)" stroke-opacity="0.18" stroke-width="1.5"/></g><g><rect x="255" y="98" width="115" height="42" rx="4" fill="rgb(242,228,207)" stroke="rgb(196,168,130)" stroke-width="1"/><line x1="312" y1="98" x2="312" y2="140" stroke="rgb(196,168,130)" stroke-width="1"/><line x1="265" y1="109" x2="300" y2="109" stroke="rgb(196,168,130)" stroke-width="1.2"/><line x1="265" y1="117" x2="300" y2="117" stroke="rgb(196,168,130)" stroke-width="1.2"/><line x1="265" y1="125" x2="292" y2="125" stroke="rgb(196,168,130)" stroke-width="1.2"/><line x1="322" y1="109" x2="357" y2="109" stroke="rgb(196,168,130)" stroke-width="1.2"/><line x1="322" y1="117" x2="357" y2="117" stroke="rgb(196,168,130)" stroke-width="1.2"/><line x1="322" y1="125" x2="348" y2="125" stroke="rgb(196,168,130)" stroke-width="1.2"/></g><g transform="rotate(27 336 30)"><rect x="296" y="25.5" width="76" height="9" rx="4.5" fill="rgb(200,16,63)"/><rect x="364" y="24.5" width="7" height="11" fill="rgb(217,164,65)"/><path d="M371,25.5 L383,30 L371,34.5 Z" fill="rgb(58,54,50)"/></g><g transform="translate(238,58) rotate(-15)"><rect x="-4" y="0" width="8" height="52" rx="2" fill="rgb(217,164,65)"/><path d="M-4,52 L4,52 L0,64 Z" fill="rgb(120,80,50)"/></g><g transform="translate(228,70) rotate(-3)"><rect x="-4" y="0" width="8" height="52" rx="2" fill="rgb(232,106,77)"/><path d="M-4,52 L4,52 L0,64 Z" fill="rgb(120,80,50)"/></g><g transform="translate(246,78) rotate(11)"><rect x="-4" y="0" width="8" height="52" rx="2" fill="rgb(150,25,32)"/><path d="M-4,52 L4,52 L0,64 Z" fill="rgb(120,80,50)"/></g><g fill="none" stroke="rgb(165,160,155)" stroke-width="2.2"><rect x="357" y="86" width="14" height="28" rx="7"/><rect x="360" y="90" width="8" height="18" rx="4"/></g><g><rect x="374" y="118" width="24" height="32" rx="2" fill="rgb(255,255,255)" fill-opacity="0.85" transform="rotate(4 386 134)"/><rect x="370" y="114" width="24" height="32" rx="2" fill="rgb(242,228,207)" fill-opacity="0.92" transform="rotate(-5 382 130)"/></g></svg>');
-    background-repeat:no-repeat;
-    background-position:right center;
-    background-size:auto 110%;
+    right:-120px; top:-140px;
+    width:420px; height:420px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(200,16,63,0.35) 0%, rgba(200,16,63,0) 70%);
     pointer-events:none;
   }
   .top-inner{max-width:1400px;margin:0 auto;position:relative;z-index:1;}
@@ -489,6 +488,7 @@
     font-size:14px;
     line-height:1.65;
     color:var(--ink-900);
+    word-break:keep-all;
   }
   .guide-list li::before{
     content:"";
@@ -505,6 +505,13 @@
     font-weight:600;
     margin-top:3px;
   }
+  .guide-sub{
+    display:block;
+    color:var(--ink-600);
+    font-size:12.5px;
+    margin-top:3px;
+    word-break:keep-all;
+  }
   .guide-addr-list{
     list-style:none;
     margin:0;
@@ -519,6 +526,7 @@
     font-size:14px;
     line-height:1.65;
     color:var(--ink-900);
+    word-break:keep-all;
   }
   .guide-addr-list li::before{
     content:"";
@@ -528,21 +536,30 @@
     border-radius:50%;
     background:var(--ink-900);
   }
+  .guide-addr-row{
+    display:flex;
+    align-items:baseline;
+    gap:4px;
+  }
   .guide-addr-tag{
-    display:inline-block;
-    min-width:64px;
+    flex:none;
     font-weight:700;
     color:var(--ink-900);
+    white-space:nowrap;
+  }
+  .guide-addr-content{
+    flex:1;
+    min-width:0;
   }
   .guide-addr-note{
     display:block;
-    margin-left:78px;
     color:var(--ink-400);
     font-size:12.5px;
+    margin-top:2px;
   }
   @media (max-width:760px){
     .guide-card{padding:22px 18px 26px;}
-    .guide-addr-note{margin-left:0;margin-top:2px;}
+    .guide-addr-row{flex-direction:column;gap:2px;}
   }
 
   /* ---------- Notice bar ---------- */
@@ -558,6 +575,96 @@
   }
   .notice-bar svg{width:14px;height:14px;flex:none;color:var(--blue-600);}
 
+  /* ---------- 우측 하단 슬라이드 패널 버튼들 ---------- */
+  .fab-stack{
+    position:fixed;
+    right:22px; bottom:22px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:12px;
+    z-index:50;
+  }
+  .fab-pill{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    border:none;
+    border-radius:999px;
+    padding:13px 22px 13px 18px;
+    background:var(--navy-800);
+    color:#fff;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 8px 22px rgba(0,0,0,0.28);
+    transition:background .15s ease, transform .15s ease, box-shadow .15s ease;
+    animation:fab-pop .5s ease backwards;
+  }
+  .fab-pill:nth-child(2){animation-delay:.1s;}
+  .fab-pill:hover{background:var(--blue-600);transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,0.32);}
+  .fab-pill svg{width:19px;height:19px;flex:none;}
+  @keyframes fab-pop{
+    from{opacity:0;transform:translateY(10px) scale(.92);}
+    to{opacity:1;transform:translateY(0) scale(1);}
+  }
+
+  .facility-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,15,15,0.4);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease;
+    z-index:60;
+  }
+  .facility-overlay.open{opacity:1;pointer-events:auto;}
+
+  .facility-drawer{
+    position:fixed;
+    top:0; right:-480px;
+    width:460px;
+    max-width:92vw;
+    height:100%;
+    background:var(--white);
+    box-shadow:-6px 0 30px rgba(0,0,0,0.18);
+    z-index:61;
+    display:flex;
+    flex-direction:column;
+    transition:right .3s ease;
+  }
+  .facility-drawer.open{right:0;}
+  #facilityDrawer{
+    width:720px;
+    max-width:96vw;
+    right:-740px;
+  }
+  #facilityDrawer.open{right:0;}
+  .facility-drawer-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 18px;
+    background:#1c1d20;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    flex:none;
+  }
+  .facility-drawer-head span{font-weight:800;font-size:15px;color:#fff;}
+  .facility-drawer-head button{
+    background:none; border:none;
+    font-size:22px; line-height:1;
+    color:rgba(255,255,255,0.65);
+    cursor:pointer;
+    padding:4px;
+  }
+  .facility-drawer-head button:hover{color:#fff;}
+  .facility-drawer iframe{flex:1;width:100%;border:none;}
+  .guide-drawer-body{
+    flex:1;
+    overflow-y:auto;
+    padding:18px;
+  }
+  .guide-drawer-body .guide-card{padding:22px 20px 26px;}
+
   /* ---------- Responsive ---------- */
   @media (max-width:760px){
     header.top{padding:22px 16px 20px;}
@@ -569,6 +676,10 @@
     .table-wrap{display:none;}
     .card-list{display:flex;}
     .result-count{width:100%;order:3;margin-left:0;text-align:right;}
+    .facility-drawer{width:100vw;max-width:100vw;right:-100vw;}
+    .fab-stack{right:14px;bottom:14px;gap:10px;}
+    .fab-pill{padding:11px 16px 11px 14px;font-size:13px;}
+    .fab-pill svg{width:17px;height:17px;}
   }
 </style>
 </head>
@@ -621,14 +732,18 @@
   </div>
 </main>
 
-<div class="guide-wrap" id="guidePage" style="display:none;">
-  <h1 class="guide-title">교육 참가 안내</h1>
+<div id="guideDrawer" class="facility-drawer">
+  <div class="facility-drawer-head">
+    <span>교육 참가 안내</span>
+    <button id="guideClose" type="button" aria-label="닫기">×</button>
+  </div>
+  <div class="guide-drawer-body">
   <div class="guide-card">
     <div class="guide-section">
       <span class="guide-label">안내사항</span>
       <ul class="guide-list">
-        <li>필수 준비물 <b>안전화</b> (교육 실습 시 공구 및 제품 낙하에 의한 안전사고 예방을 위함)
-          <span class="guide-note">※ 미지참 시 과정 평가 점수에 감점 반영</span>
+        <li>필수 준비물: <b>안전화</b>
+          <span class="guide-sub">(공구 및 제품 낙하 사고 예방, 미지참 시 실습 평가 점수 감점)</span>
         </li>
         <li>사전학습이 필요한 과정은 교육 참가 전 배움마당을 통해 반드시 이수해 주시기 바랍니다.</li>
       </ul>
@@ -651,20 +766,54 @@
       <span class="guide-label">러닝센터 출입안내</span>
       <ul class="guide-addr-list">
         <li>
-          <span class="guide-addr-tag">[ 주 소 ]</span> 경기도 평택시 진위면 엘지로 222 LG디지털파크
-          <span class="guide-addr-note">※ 네비게이션 검색 : LG디지털파크 서문</span>
+          <div class="guide-addr-row">
+            <span class="guide-addr-tag">[ 주 소 ]</span>
+            <span class="guide-addr-content">경기도 평택시 진위면 엘지로 222 LG디지털파크
+              <span class="guide-addr-note">※ 네비게이션 검색 : LG디지털파크 서문</span>
+            </span>
+          </div>
         </li>
         <li>
-          <span class="guide-addr-tag">[ 입 소 ]</span> 나눔관 (안내된 건물 지정 강의실 입소)
-          <span class="guide-addr-note">※ 정문 or 서문 Gate에서 ID카드 태깅 후 통과(ID카드 미소지자는 '교육참가확인서' 제출)</span>
+          <div class="guide-addr-row">
+            <span class="guide-addr-tag">[ 입 소 ]</span>
+            <span class="guide-addr-content">나눔관 (안내된 건물 지정 강의실 입소)
+              <span class="guide-addr-note">※ 정/서문 Gate에서 ID카드 태깅 후 통과(ID카드 미소지자는 '교육참가확인서' 제출)</span>
+            </span>
+          </div>
         </li>
         <li>
-          <span class="guide-addr-tag">[ 퇴 소 ]</span> 보안 Packing확인 → 정문 or 서문 고객안내실 확인
-          <span class="guide-addr-note">※ 정/서문 Gate 보안 관련 문의 : 031-610-5259</span>
+          <div class="guide-addr-row">
+            <span class="guide-addr-tag">[ 퇴 소 ]</span>
+            <span class="guide-addr-content">보안 Packing확인 → 정/서문 고객안내실 확인
+              <span class="guide-addr-note">※ 정/서문 Gate 보안 관련 문의 : 031-610-5259</span>
+            </span>
+          </div>
         </li>
       </ul>
     </div>
   </div>
+  </div>
+</div>
+
+<div class="fab-stack">
+  <button id="guideBtn" class="fab-pill" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    교육참가안내
+  </button>
+  <button id="facilityBtn" class="fab-pill" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg>
+    러닝센터 시설안내
+  </button>
+</div>
+
+<div id="facilityOverlay" class="facility-overlay"></div>
+
+<div id="facilityDrawer" class="facility-drawer">
+  <div class="facility-drawer-head">
+    <span>러닝센터 시설안내</span>
+    <button id="facilityClose" type="button" aria-label="닫기">×</button>
+  </div>
+  <iframe id="facilityFrame" title="러닝센터 시설안내" loading="lazy"></iframe>
 </div>
 
 <script>
@@ -681,7 +830,7 @@ const APPLY_BASE_URL = "https://edu.yourcompany.com/course/search";
 
 /* ========================================================= */
 
-const state = { rows: [], team: null, month: "", product: "", q: "", view: "data" };
+const state = { rows: [], team: null, month: "", product: "", q: "" };
 
 const $ = (sel) => document.querySelector(sel);
 const stateMsg = $("#stateMsg");
@@ -692,8 +841,6 @@ const searchInput = $("#searchInput");
 const productSelect = $("#productSelect");
 const monthChips = $("#monthChips");
 const teamTabs = $("#teamTabs");
-const stickyControls = document.querySelector(".sticky-controls");
-const guidePage = $("#guidePage");
 const resultCount = $("#resultCount");
 
 function toRecords(list) {
@@ -752,9 +899,10 @@ function buildTeamTabs() {
 
   const tabs = ["전체", ...teams];
   teamTabs.innerHTML = tabs.map(t =>
-    `<button class="team-tab ${state.view === "data" && t === state.team ? "active" : ""}" data-team="${t === "전체" ? "" : escapeAttr(t)}">${escapeHtml(t)}</button>`
-  ).join("") + `<button class="team-tab ${state.view === "guide" ? "active" : ""}" data-guide="1">교육참가안내</button>`;
+    `<button class="team-tab ${t === state.team ? "active" : ""}" data-team="${t === "전체" ? "" : escapeAttr(t)}">${escapeHtml(t)}</button>`
+  ).join("");
 }
+
 
 function buildFilters() {
   const scoped = state.team ? state.rows.filter(r => r.team === state.team) : state.rows;
@@ -911,24 +1059,11 @@ teamTabs.addEventListener("click", (e) => {
   const btn = e.target.closest(".team-tab");
   if (!btn) return;
 
-  if (btn.dataset.guide) {
-    state.view = "guide";
-    stickyControls.style.display = "none";
-    main.style.display = "none";
-    guidePage.style.display = "block";
-    buildTeamTabs();
-    return;
-  }
-
-  state.view = "data";
   state.team = btn.dataset.team;
   state.month = "";
   state.product = "";
   searchInput.value = "";
   state.q = "";
-  stickyControls.style.display = "";
-  main.style.display = "";
-  guidePage.style.display = "none";
   buildTeamTabs();
   buildFilters();
   render();
@@ -936,6 +1071,42 @@ teamTabs.addEventListener("click", (e) => {
 refreshBtn.addEventListener("click", () => loadData(true));
 
 loadData(false);
+
+/* 우측 하단 슬라이드 패널 (교육참가안내 / 러닝센터 시설안내) */
+const guideBtn = document.getElementById("guideBtn");
+const guideDrawer = document.getElementById("guideDrawer");
+const guideClose = document.getElementById("guideClose");
+const facilityBtn = document.getElementById("facilityBtn");
+const facilityDrawer = document.getElementById("facilityDrawer");
+const facilityOverlay = document.getElementById("facilityOverlay");
+const facilityClose = document.getElementById("facilityClose");
+const facilityFrame = document.getElementById("facilityFrame");
+let facilityLoaded = false;
+
+function closeAllDrawers() {
+  guideDrawer.classList.remove("open");
+  facilityDrawer.classList.remove("open");
+  facilityOverlay.classList.remove("open");
+}
+function openGuide() {
+  closeAllDrawers();
+  guideDrawer.classList.add("open");
+  facilityOverlay.classList.add("open");
+}
+function openFacility() {
+  closeAllDrawers();
+  if (!facilityLoaded) {
+    facilityFrame.src = "https://lgccs.github.io/learningcenter/academy";
+    facilityLoaded = true;
+  }
+  facilityDrawer.classList.add("open");
+  facilityOverlay.classList.add("open");
+}
+guideBtn.addEventListener("click", openGuide);
+guideClose.addEventListener("click", closeAllDrawers);
+facilityBtn.addEventListener("click", openFacility);
+facilityClose.addEventListener("click", closeAllDrawers);
+facilityOverlay.addEventListener("click", closeAllDrawers);
 </script>
 
 </body>
